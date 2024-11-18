@@ -1,3 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Atyp Display TRIAL';
+  src: url('/fonts/AtypDisplayTRIAL-Medium-BF65727125b8683.otf') format('opentype');
+
+  font-weight: 600; /* Update to match the weight (e.g., semibold) */
+  font-style: italic; /* Matches the italic style */
+}
+
+/* Font-face for AtypKidoTRIAL-Thin */
+@font-face {
+    font-family: 'AtypKidoTRIAL';
+    src: url('/fonts/AtypKidoTRIAL-Thin-BF657271259222f.otf') format('opentype');
+    font-weight: 100; /* Thin weight */
+    font-style: normal; /* Regular style */
+  }
+
+
+  /* Font-face for AtypKidoTRIAL-Semibold */
+@font-face {
+    font-family: 'AtypKidoTRIAL';
+    src: url('/fonts/AtypKidoTRIAL-Semibold-BF6572712573d5b.otf') format('opentype');
+    font-weight: 600; /* Semibold weight */
+    font-style: normal; /* Regular style */
+  }
