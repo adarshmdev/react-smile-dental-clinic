@@ -3,6 +3,9 @@
 
 import React from 'react';
 import { Phone, MessageCircleMore } from 'lucide-react';
+import { useState, useEffect
+
+ } from 'react';
 
 const Header = () => (
   <header className="fixed top-0 left-0 right-0 bg-white z-50 py-4 px-6 flex justify-between items-center shadow-sm">
@@ -403,6 +406,403 @@ const MonthlyOffersSection = () => {
 };
 
 
+const AutoSlider = () => {
+  const services = [
+    "General Dentistry",
+    "Cosmetic Dentistry",
+    "Teeth Whitening",
+    "Gum Treatment",
+    "Root Canal Treatment"
+  ];
+
+  // Duplicate the array to create a seamless infinite scroll effect
+  const duplicatedServices = [...services, ...services];
+  const [position, setPosition] = useState(0);
+
+  useEffect(() => {
+    const slideAnimation = setInterval(() => {
+      setPosition((prevPosition) => {
+        // Reset position when reaching the end of original items
+        if (prevPosition <= -50 * services.length) {
+          return 0;
+        }
+        return prevPosition - 0.5; // Adjust speed by changing this value
+      });
+    }, 20); // Adjust interval for smoother/faster animation
+
+    return () => clearInterval(slideAnimation);
+  }, [services.length]);
+
+  return (
+    <div className="w-full overflow-hidden bg-white py-16">
+      <div 
+        className="flex whitespace-nowrap"
+        style={{
+          transform: `translateX(${position}px)`,
+          transition: 'transform 0.02s linear'
+        }}
+      >
+        {duplicatedServices.map((service, index) => (
+          <div key={index} className="flex items-center">
+            <span className="text-xl md:text-2xl font-medium text-gray-800 px-4">
+              {service}
+            </span>
+            <img
+              src="/Star 5.png"
+              alt="Star separator"
+              className="w-6 h-6 object-contain mx-4"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const SlidingServicesSection = () => {
+  return (
+    <section className="w-full bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Your other services content can go here */}
+        <AutoSlider />
+        {/* Other content */}
+      </div>
+    </section>
+  );
+};
+
+
+
+const TestimonialsSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const testimonials = [
+    {
+      image: "Frame 1321315036 (1).png",
+      heading: "500+ Happy clients said to us they are satisfied",
+      reviews: [
+        {
+          name: "Jang Wonyoung",
+          country: "Korea",
+          content: "We value your feedback and are committed to providing exceptional service to all our clients. If you have any concerns or questions",
+          avatar: "Ellipse 6.png"
+        },
+        {
+          name: "Jennie Kim",
+          country: "USA",
+          content: "Our priority, and we appreciate the opportunity to address any issues and ensure your complete satisfaction.",
+          avatar: "Ellipse 7.png"
+        }
+      ]
+    },
+    {
+      image: "Frame 1321315036 (1).png",
+      heading: "Our clients love what we do for them",
+      reviews: [
+        {
+          name: "Lisa Park",
+          country: "Korea",
+          content: "The service exceeded my expectations. The staff was professional and caring throughout my treatment.",
+          avatar: "Ellipse 6.png"
+        },
+        {
+          name: "John Smith",
+          country: "USA",
+          content: "I've never felt more comfortable at a dental clinic. The team is amazing and the results are outstanding.",
+          avatar: "Ellipse 7.png"
+        }
+      ]
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="bg-[#F37D27] w-full py-16 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative">
+        <div className="transition-all duration-500 transform">
+          <div className="flex flex-col lg:flex-row items-start gap-8 relative">
+            {/* Left Section */}
+            <div className="w-full lg:w-2/5">
+              <div className="relative rounded-lg overflow-hidden">
+                <img 
+                  src={testimonials[currentSlide].image}
+                  alt="Dental clinic" 
+                  className="w-full h-[400px] object-cover rounded-lg"
+                />
+              </div>
+            </div>
+  
+            {/* Right Section */}
+            <div className="w-full lg:w-3/5 text-white pt-8">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-16 leading-tight">
+                {testimonials[currentSlide].heading}
+              </h2>
+            </div>
+  
+            {/* Review Cards */}
+            <div 
+              className="absolute bottom-0 w-full lg:w-[85%] flex gap-6 justify-center translate-x-64 translate-y-12"
+            >
+              {testimonials[currentSlide].reviews.map((review, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white rounded-2xl p-8 text-gray-800 shadow-lg w-[390px] h-[240px] relative"
+                >
+                  <div className="text-[#F37D27] text-4xl font-serif absolute -top-4 left-4"></div>
+                  <p className="text-gray-600 text-sm mt-2 min-h-[80px]">
+                    {review.content}
+                  </p>
+                  <div className="flex items-center gap-3 mt-6">
+                    <img 
+                      src={review.avatar}
+                      alt={review.name}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div>
+                      <h4 className="font-medium text-sm">{review.name}</h4>
+                      <p className="text-gray-500 text-xs">{review.country}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+  
+          {/* Centered Slider Dots */}
+          <div className="flex gap-3 justify-center mt-32">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentSlide === index 
+                    ? 'bg-white w-8' 
+                    : 'bg-white/40 w-2'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+  
+        {/* Contact Buttons */}
+        <div className="fixed right-6 z-40 space-y-4">
+          <div className="w-12 h-12 rounded-full border-2 border-green-500 flex items-center justify-center bg-white">
+            <Phone className="w-6 h-6 text-green-500" />
+          </div>
+          <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
+            <img src="/whatsapp-icon.svg" alt="WhatsApp" className="w-6 h-6" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+  
+}  
+
+
+
+const InsurancePartnersSection = () => {
+  const partners = [
+    { id: 1, name: "SAICO", image: "Frame 1321314963.png" },
+    { id: 2, name: "Nextcare", image: "Frame 1321314967.png" },
+    { id: 3, name: "Neuron", image: "Frame 1321314968.png" },
+    { id: 4, name: "NGI", image: "Frame 1321314969.png" },
+    { id: 5, name: "NAS", image: "Frame 1321314970.png" },
+    { id: 6, name: "MSH", image: "Frame 1321314971.png" },
+    { id: 7, name: "Mednet", image: "Frame 1321314974.png" },
+    { id: 8, name: "Almadallah", image: "Frame 1321314975.png" },
+    { id: 9, name: "Sukoon", image: "Frame 1321314976.png" }
+  ];
+
+  return (
+    <section className="py-16">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Our Insurance Partners</h2>
+          <p className="text-gray-500 max-w-2xl mx-auto">
+            Conveniently pay for your dental treatments with your insurance.
+            We accept major insurance providers.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap w-full justify-center mb-0 [&>img]:m-0">
+            {partners.slice(0, 6).map((partner) => (
+              <img
+                key={partner.id}
+                src={partner.image}
+                alt={`${partner.name} logo`}
+                className="h-[80px] object-contain"
+              />
+            ))}
+          </div>
+          <div className="flex w-full [&>img]:m-0">
+            <div className="w-[37.33%]"></div>
+            <div className="flex">
+              {partners.slice(6).map((partner) => (
+                <img
+                  key={partner.id}
+                  src={partner.image}
+                  alt={`${partner.name} logo`}
+                  className="h-[80px] object-contain"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+const BlogCard = ({ image, title, description }) => (
+  <div className="overflow-hidden">
+    <div className="h-48 overflow-hidden">
+      <img src={image} alt={title} className="w-full h-full object-cover" />
+    </div>
+    <div className="pt-6">
+      <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
+      <p className="text-gray-600 mb-4 text-sm">{description}</p>
+      <button className="text-gray-800 font-medium hover:text-gray-600 transition-colors duration-300 border-b border-gray-800">
+        READ MORE
+      </button>
+    </div>
+  </div>
+);
+
+const LatestBlogs = () => {
+  const blogs = [
+    {
+      image: "Frame 1321315104.png",
+      title: "Lorem Ipsum available, but the majority have suffered",
+      description: "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even"
+    },
+    {
+      image: "Frame 1321315104 (1).png",
+      title: "Lorem Ipsum available, but the majority have suffered",
+      description: "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even"
+    },
+    {
+      image: "Frame 1321315104 (2).png",
+      title: "Lorem Ipsum available, but the majority have suffered",
+      description: "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even"
+    },
+    {
+      image: "Frame 1321315104 (3).png",
+      title: "Lorem Ipsum available, but the majority have suffered",
+      description: "Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even"
+    }
+  ];
+
+  return (
+    <section className="py-16 bg-gradient-to-b from-orange-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900">See Our Latest Blogs!</h2>
+          <button className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600 transition-colors duration-300">
+            View All
+          </button>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {blogs.map((blog, index) => (
+            <BlogCard key={index} {...blog} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+const FAQAccordion = () => {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  const faqData = [
+    {
+      question: "How often should I visit the dentist?",
+      answer: "We recommend visiting the dentist at least twice a year for routine check-ups and cleanings. However, your specific needs may require more frequent visits."
+    },
+    {
+      question: "What can I expect during my first visit?",
+      answer: "During your first visit, we'll review your medical history, perform a comprehensive oral examination, take necessary X-rays, and create a personalized treatment plan."
+    },
+    {
+      question: "How can I prepare for my dental appointment?",
+      answer: "Brush and floss before your appointment, bring your insurance information and medical history, and arrive 15 minutes early to complete any necessary paperwork."
+    },
+    {
+      question: "What should I do in case of a dental emergency?",
+      answer: "Contact our emergency dental line immediately. In the meantime, rinse with warm water, apply a cold compress for swelling, and preserve any broken tooth pieces."
+    }
+  ];
+
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? -1 : index);
+  };
+
+  return (
+    <div className="w-full max-w-6xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">FAQs</h1>
+      
+      <div className="space-y-4">
+        {faqData.map((item, index) => (
+          <div
+            key={index}
+            className={`rounded-lg transition-all duration-300 ${
+              openIndex === index 
+                ? 'bg-orange-50 border-transparent' 
+                : 'bg-white border border-gray-200'
+            }`}
+          >
+            <button
+              onClick={() => toggleAccordion(index)}
+              className="w-full flex items-center justify-between p-6 text-left"
+            >
+              <span className="text-lg font-medium text-gray-900">
+                {item.question}
+              </span>
+              <div
+                className={`inline-flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${
+                  openIndex === index
+                    ? 'bg-orange-500 text-white'
+                    : 'bg-gray-900 text-white'
+                }`}
+              >
+                <span className="inline-block leading-none" style={{ marginTop: '-2px' }}>
+                  {openIndex === index ? '−' : '+'}
+                </span>
+              </div>
+            </button>
+            
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                openIndex === index ? 'max-h-40' : 'max-h-0'
+              }`}
+            >
+              <p className="px-6 pb-6 text-gray-600">
+                {item.answer}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
+
+
 
 const App = () => {
   return (
@@ -414,6 +814,11 @@ const App = () => {
       <ServicesSection />
       <TeamSection />
       <MonthlyOffersSection />
+      <SlidingServicesSection />
+      <TestimonialsSection />
+      <InsurancePartnersSection />
+      <LatestBlogs />
+      <FAQAccordion />
     </div>
   );
 };
