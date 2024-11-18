@@ -33,67 +33,127 @@ const Header = () => (
   </header>
 );
 
-const FloatingElements = () => (
-  <>
-    <div className="fixed left-6 top-1/3 z-40">
-      <div className="bg-white p-4 rounded-xl shadow-lg">
-        <div className="flex items-center gap-2">
-          <img src="Group 3.png" alt="Google" className="w-6" />
-          <span className="text-lg font-semibold">4.8</span>
+
+const GoogleReview = () => {
+  return (
+    <div className="fixed left-6 top-[80%] z-40">
+      <div className="relative bg-white rounded-lg shadow-md overflow-hidden w-[250px] h-[90px]"> {/* Set custom width */}
+        {/* Green line at the top */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-green-600"></div>
+        
+        {/* Main content */}
+        <div className="p-3">
+          <div className="flex items-start gap-3">
+            {/* Google Logo */}
+            <img src="Group 3.png" alt="Google" className="w-10 h-10 mt-4" /> {/* Keep this as is */}
+
+            {/* Rating Content */}
+            <div className="flex flex-col">
+              <span className="text-gray-600 font-medium text-sm">Google Rating</span>
+              <div className="flex items-center gap-2">
+                <span className="text-[#F5B401] text-xl font-medium">4.8</span>
+                <div className="flex text-[#F5B401]">
+                  {'★★★★'.split('').map((star, i) => (
+                    <span key={i} className="text-lg">{star}</span> 
+                  ))}
+                  <span className="text-lg opacity-50">★</span>
+                </div>
+              </div>
+              <a href="#" className="text-gray-500 hover:underline mt-1 text-xs">
+                See all our reviews
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="flex text-yellow-400 text-sm">★★★★★</div>
-        <div className="text-xs text-gray-500 mt-1">See all our reviews</div>
       </div>
     </div>
-    <div className="fixed right-6 top-1/2 flex flex-col gap-4 z-40">
-      <div className="w-12 h-12 rounded-full border-2 border-green-500 flex items-center justify-center">
-        <div className="w-6 h-6">
-          <img src="/phone-icon.svg" alt="Call" className="w-full h-full" />
-        </div>
+  );
+};
+
+
+
+
+
+const FloatingElements = () => {
+  const handleCall = () => {
+    window.location.href = 'tel:+1234567890'; // Replace with actual phone number
+  };
+
+  const handleWhatsApp = () => {
+    window.open('https://wa.me/1234567890', '_blank'); // Replace with actual WhatsApp number
+  };
+
+  return (
+    <>
+      <GoogleReview />
+      <div className="fixed right-6 top-1/2 translate-y-16 flex flex-col -space-y-10 z-40">
+        <button
+          onClick={handleCall}
+          className="flex items-center justify-center"
+          aria-label="Call us"
+        >
+          <img 
+            src="Frame 1321314940.png" 
+            alt="Call" 
+            className="w-28 h-28 object-contain"
+          />
+        </button>
+        <button
+          onClick={handleWhatsApp}
+          className="flex items-center justify-center"
+          aria-label="Contact us on WhatsApp"
+        >
+          <img 
+            src="Frame 1321314939.png" 
+            alt="WhatsApp" 
+            className="w-28 h-28 object-contain"
+          />
+        </button>
       </div>
-      <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
-        <div className="w-6 h-6">
-          <img src="/whatsapp-icon.svg" alt="WhatsApp" className="w-full h-full" />
-        </div>
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
+
 
 const HeroBanner = () => (
-  <div className="relative pt-20 bg-gradient-to-r from-white to-gray-200">
-    <div className="container mx-auto px-6 py-16 flex items-center justify-between">
-      <div className="w-1/2">
-        <div className="text-5xl font-bold leading-tight">
+  <div className="relative pt-28 pb-64 bg-gradient-to-r from-white to-gray-200 h-[600px]"> {/* Increased height */}
+    <div className="container mx-auto px-6 py-16 flex items-center justify-between h-full">
+      <div className="w-1/2 z-10 relative"> {/* Added z-10 to keep text on top */}
+        <div className="text-6xl font-bold leading-tight">
           Have a shining
         </div>
-        <div className="text-5xl font-bold leading-tight">
+        <div className="text-6xl font-bold leading-tight">
           smile with our
         </div>
-        <div className="text-5xl font-bold leading-tight text-orange-500">
+        <div className="text-6xl font-bold leading-tight text-orange-500">
           modern methods!
         </div>
       </div>
-      <div className="w-64 bg-gradient-to-r from-gray-100 to-gray-100 rounded-xl py-6 px-3 border-2 border-white">
-        <div className="text-orange-500 mb-4">
+      <img
+        src="/young-caucasian-blonde-female-closing-her-eyes-crossing-fingers-with-hope-anticipating-important-news-beautiful-woman-with-hopeful-expression-gesturing-with-fingers-showing-white-teeth 2.png"
+        alt="Woman smiling"
+        className="w-3/4 h-auto object-contain absolute right-0 top-[64%] -translate-y-1/2" 
+      />
+      <div className="w-52 bg-gradient-to-r from-gray-100 to-gray-200 rounded-xl py-4 px-3 border-2 border-white relative z-10 mt-[-30px]"> {/* Moved up */}
+        <div className="text-orange-500 mb-3">
           <span className="text-xl font-bold">15+</span>
           <span className="text-base font-normal"> Expert Doctors</span>
         </div>
-        <div className="flex -space-x-2 mb-4">
+        <div className="flex -space-x-1 mb-3"> {/* Adjusted spacing */}
           <img
             src="Mask group.png"
             alt="Doctor"
-            className="w-10 h-10 rounded-full border-2 border-white"
+            className="w-8 h-8 rounded-full border-2 border-white" 
           />
           <img
             src="Mask group (1).png"
             alt="Doctor"
-            className="w-10 h-10 rounded-full border-2 border-white"
+            className="w-8 h-8 rounded-full border-2 border-white" 
           />
           <img
             src="Mask group (2).png"
             alt="Doctor"
-            className="w-10 h-10 rounded-full border-2 border-white"
+            className="w-8 h-8 rounded-full border-2 border-white" 
           />
         </div>
         <p className="text-black text-sm leading-tight">
@@ -108,11 +168,12 @@ const HeroBanner = () => (
   </div>
 );
 
+
 const StatsBanner = () => (
-  <div className="relative">
-    <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-black" />
-    <div className="container mx-auto px-6 relative">
-      <div className="bg-white rounded-xl p-8 shadow-lg">
+  <div className="relative -mt-16">
+    <div className="absolute bottom-0 top-16 left-0 right-0 h-28 bg-black" />
+    <div className="container mx-auto px-6 relative z-10">
+      <div className="bg-white rounded-md p-8 shadow-lg">
         <div className="grid grid-cols-4 gap-8">
           <div className="text-center">
             <div className="text-orange-500 text-3xl font-bold flex items-center justify-center gap-2">
@@ -147,6 +208,8 @@ const StatsBanner = () => (
     </div>
   </div>
 );
+
+
 
 
 
@@ -255,9 +318,9 @@ const TeamSection = () => {
   ];
 
   return (
-    <div className="relative pb-32">
+    <div className="relative pb-32 pt-14">
       {/* Background split - now black on top, white on bottom */}
-      <div className="absolute top-0 left-0 right-0 h-1/2 bg-slate-900" />
+      <div className="absolute top-0 left-0 right-0 h-1/2 bg-black" />
       
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-12">
@@ -272,7 +335,7 @@ const TeamSection = () => {
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col">
               {/* Image Card */}
-              <div className="bg-white rounded-lg overflow-hidden shadow-md mb-4">
+              <div className="bg-white rounded-lg overflow-hidden mb-4">
                 <div className="aspect-w-3 aspect-h-4">
                   <img
                     src={member.image}
@@ -386,15 +449,28 @@ const MonthlyOffersSection = () => {
   return (
     <section className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">
-            Exclusive Monthly Dental Offers
-          </h2>
-          <p className="text-gray-600">
-            Unlock your smile's potential with our exclusive dental offers for this month
-          </p>
+        <div className="mb-12 flex items-center justify-between">
+          {/* Left side - Heading */}
+          <div className="flex flex-col text-left">
+            <h2 className="text-4xl font-bold">
+              Exclusive
+            </h2>
+            <h2 className="text-4xl font-bold">
+              Monthly Dental Offers
+            </h2>
+          </div>
+
+          {/* Right side - Small text */}
+          <div className="flex flex-col text-right max-w-xl">
+            <p className="text-gray-600">
+              Unlock your smile's potential with our exclusive
+            </p>
+            <p className="text-gray-600">
+              dental offers for this month
+            </p>
+          </div>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {offers.map((offer, index) => (
             <OfferCard key={index} {...offer} />
@@ -404,6 +480,8 @@ const MonthlyOffersSection = () => {
     </section>
   );
 };
+
+
 
 
 const AutoSlider = () => {
@@ -804,6 +882,248 @@ const FAQAccordion = () => {
 
 
 
+const AppointmentBanner = () => {
+  return (
+    <div className="relative w-full bg-orange-500 py-16 overflow-visible mt-48">
+      {/* Left Side Lines */}
+      <div
+        className="absolute left-0 w-1/3 inset-y-0"
+        style={{
+          backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                           linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+          transform: "skew(-45deg)",
+          transformOrigin: "top left",
+        }}
+      />
+
+      {/* Center Lines */}
+      <div
+        className="absolute left-1/3 w-1/3 inset-y-0"
+        style={{
+          backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                           linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }}
+      />
+
+      {/* Right Side Lines */}
+      <div
+        className="absolute right-0 w-1/3 inset-y-0"
+        style={{
+          backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                           linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+          transform: "skew(45deg)",
+          transformOrigin: "top right",
+        }}
+      />
+
+      {/* Content Container */}
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col md:flex-row items-center justify-between relative">
+          {/* Text Content */}
+          <div className="md:w-1/2 z-10">
+            <h2 className="text-white text-4xl md:text-5xl font-bold mb-4 leading-tight">
+              Book an Appointment With Your Doctor NOW!
+            </h2>
+            <p className="text-white text-lg mb-8">
+              Conveniently pay for your dental treatments with your insurance.
+              <br />
+              We accept major insurance providers.
+            </p>
+            <button className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded">
+              Book Now
+            </button>
+          </div>
+
+          {/* Image Container */}
+          <div className="md:w-1/2 relative h-96 -mt-32">
+            <img
+              src="young-man-using-phone-while-standing-against-white-background-removebg-preview 1.png"
+              alt="Medical professional"
+              className="absolute right-0 h-[460px] w-auto object-contain"
+              style={{
+                top: "-3%",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
+
+const Footer = () => {
+  return (
+    <>
+      {/* Spacer div between AppointmentBanner and Footer */}
+      <div className="h-16" />
+      
+      <footer className="bg-slate-900 text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Get In Touch Section */}
+            <div>
+              <div className="mb-6">
+                <img 
+                  src="/Layer_1 (5).png" 
+                  alt="Smile Essentials Dental Clinic" 
+                  className="h-10"
+                />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Get In Touch</h3>
+              <div className="space-y-2 text-sm">
+                <p className="font-medium">Contact Number</p>
+                <div className="flex items-center space-x-2 mb-2">
+                  <p>+971 4 2979464</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <p>+971 56 4848613</p>
+                </div>
+                <p className="font-medium mt-3">Email</p>
+                <p>info@smiledentaldubai.com</p>
+              </div>
+              <div className="flex space-x-4 mt-4">
+                <a href="#" className="hover:opacity-80 transition-opacity">
+                  <img src="/_Facebook.png" alt="Facebook" className="w-5 h-5" />
+                </a>
+                <a href="#" className="hover:opacity-80 transition-opacity">
+                  <img src="/_Instagram.png" alt="Instagram" className="w-5 h-5" />
+                </a>
+                <a href="#" className="hover:opacity-80 transition-opacity">
+                  <img src="/_Linkedin.png" alt="LinkedIn" className="w-5 h-5" />
+                </a>
+                <a href="#" className="hover:opacity-80 transition-opacity">
+                  <img src="/_WhatsApp.png" alt="WhatsApp" className="w-5 h-5" />
+                </a>
+                <a href="tel:+97142979464" className="hover:opacity-80 transition-opacity">
+                  <img src="/calling.png" alt="Call" className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Our Address Section */}
+            <div>
+              {/* Empty div to match logo height */}
+              <div className="mb-6 h-10" />
+              <h3 className="text-xl font-semibold mb-4">Our Address</h3>
+              <div className="text-sm space-y-2">
+                <p>Room No: 314 Al Attar Shopping Mall</p>
+                <p>Next to Karama Center,Al Karama,</p>
+                <p>P.O.Box: 125706, Dubai, UAE</p>
+              </div>
+              <div className="mt-4">
+                <h4 className="text-lg font-semibold mb-3">Location Map</h4>
+                <div className="rounded-lg overflow-hidden">
+                  <img 
+                    src="/Frame 1321314987.png"
+                    alt="Location Map"
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Links Section 1 */}
+            <div>
+              {/* Empty div to match logo height */}
+              <div className="mb-6 h-10" />
+              <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    Gallery
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    Blogs
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Quick Links Section 2 */}
+            <div>
+              {/* Empty div to match logo height */}
+              <div className="mb-6 h-10" />
+              <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    Children's Dentistry
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-orange-400 transition-colors">
+                    General Dentistry
+                  </a>
+                </li>
+              </ul>
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+                <div className="text-sm">
+                  <div className="flex items-center space-x-2">
+                    <svg 
+                      className="w-4 h-4 text-orange-400" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" 
+                      />
+                    </svg>
+                    <span>Open all 7 days</span>
+                  </div>
+                  <p className="mt-1">9:00 AM to 9:00 PM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-12 border-t border-gray-800">
+          <div className="container mx-auto px-4 py-4">
+            <p className="text-xs text-gray-400 text-center">
+              ©copyright all reserved by Smile Essentials - Powered by Hoztox Technologies
+            </p>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+};
+
+
+
+
 const App = () => {
   return (
     <div className="min-h-screen">
@@ -819,6 +1139,8 @@ const App = () => {
       <InsurancePartnersSection />
       <LatestBlogs />
       <FAQAccordion />
+      <AppointmentBanner />
+      <Footer />
     </div>
   );
 };
